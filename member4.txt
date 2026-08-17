@@ -1,0 +1,90 @@
+
+
+	Member 4 — Complete Encoding Walkthrough + Integration
+
+	This is the most important practical section because it brings everything together.
+	Member 4 takes the exact code supplied by your professor/assignment.
+		
+
+	Then for every instruction, perform this process:
+
+		Assembly instruction
+        		↓
+		Identify instruction format
+        		↓
+		Find opcode
+        		↓
+		Determine operands
+        		↓
+		Construct ModR/M
+        		↓
+		Construct SIB if necessary
+        		↓
+		Calculate displacement
+        		↓
+		Calculate immediate
+        		↓
+		Calculate relative offset for jumps
+        		↓
+		Convert multi-byte values to little endian
+        		↓
+		Final hexadecimal machine code
+
+
+
+	Example of the style Member 4 should use
+
+	Suppose the code contains:
+
+		MOV EAX, [EBX+8]
+
+	Don't just write: 8B 43 08
+
+	
+	Step 1 — Opcode
+
+	For:
+
+		MOV r32, r/m32
+		^
+		for this line opcode is 8B /r 
+
+		opcode = 8B
+
+	
+	step 2 - MODR/M
+
+	Destination:
+		
+		EAX register : EAX REG =  000
+
+	Source: 
+		[EBX+8] requres : MOD = 01, R/M = 011 (in decimal 8)
+
+		So now we got:
+
+			MOD = 01
+			REG = 000
+			R/M = 011
+
+		combine:
+			MOD 	REG 	R/M
+			01 	000 	011
+
+			0100 = 4   &  0011 = 3  (make the groups of the  4bits)
+
+			which eqals to the: 43
+
+	step 3: - Displacement
+		
+		[EBX+8]:  8 = 08h
+		     ^-- This is the displacement 
+
+		displacement = 8
+
+	
+	Step 4: — Final encoding
+		
+		8B 43 08
+
+		this is the final encoding for the instruction : MOV EAX, [EBX+8]
