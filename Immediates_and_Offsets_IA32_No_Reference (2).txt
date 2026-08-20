@@ -1,0 +1,226 @@
+IMMEDIATES & OFFSETS
+IA-32 (32-bit x86) Instruction Encoding
+
+3.1 INTRODUCTION
+
+An IA-32 instruction may contain immediate operands, memory displacements, or relative offsets. Immediate values are constants stored directly in the instruction. Displacements help calculate memory addresses. Relative offsets are used by control-transfer instructions such as JMP and JNE. The important sizes for this section are 8-bit and 32-bit. Multi-byte values use Little-Endian byte order.
+
+3.2 IMMEDIATE VALUES
+
+An immediate is a constant operand encoded directly in the instruction.
+
+Example:
+MOV EAX, 10
+
+Here, 10 is the immediate operand.
+
+Common sizes:
+- imm8 = 8 bits = 1 byte
+- imm16 = 16 bits = 2 bytes
+- imm32 = 32 bits = 4 bytes
+
+8-bit example:
+ADD EAX, 05H
+
+One valid encoding:
+83 C0 05
+
+83 = opcode
+C0 = ModR/M byte
+05 = 8-bit immediate
+
+32-bit example:
+MOV EAX, 12345678H
+
+Opcode:
+B8
+
+Normal byte order:
+12 34 56 78
+
+Little-Endian byte order:
+78 56 34 12
+
+Final machine code:
+B8 78 56 34 12
+
+
+3.3 LITTLE-ENDIAN REPRESENTATION
+
+Little-Endian stores the least significant byte first. Reverse the order of bytes, not the bits inside each byte.
+
+Examples:
+12345678H -> 78 56 34 12
+0000000AH -> 0A 00 00 00
+11223344H -> 44 33 22 11
+AABBCCDDH -> DD CC BB AA
+
+
+3.4 DISPLACEMENT / OFFSET
+
+A displacement is added to a base or index register to calculate an effective memory address.
+
+Example:
+MOV EAX, [EBX + 05H]
+
+EBX = base register
+05H = displacement
+
+Effective Address = EBX + 05H
+
+Common sizes:
+- disp8 = 8 bits = 1 byte
+- disp32 = 32 bits = 4 bytes
+
+8-bit displacement example:
+MOV EAX, [EBX + 05H]
+
+One valid encoding:
+8B 43 05
+
+05 is the 8-bit displacement.
+
+32-bit displacement:
+12345678H -> 78 56 34 12
+
+
+IMMEDIATE VS DISPLACEMENT
+
+Immediate:
+MOV EAX, 10
+Purpose: Constant data
+Type: imm8 / imm32
+
+Displacement:
+MOV EAX, [EBX + 10]
+Purpose: Address calculation
+Type: disp8 / disp32
+
+
+3.5 EIP-RELATIVE ADDRESSING
+
+Relative branches store a signed displacement from the address of the next instruction instead of storing the complete target address.
+
+Formula:
+Relative Offset = Target Address - Address of Next Instruction
+
+Address of Next Instruction =
+Current Instruction Address + Instruction Length
+
+
+3.6 SHORT JMP EXAMPLE
+
+JMP address = 1000H
+Target address = 1010H
+Instruction length = 2 bytes
+
+Next Instruction:
+1000H + 2 = 1002H
+
+Relative Offset:
+1010H - 1002H = 000EH
+
+Offset = 0EH
+
+Final machine code:
+EB 0E
+
+EB = short JMP opcode
+0E = 8-bit relative displacement
+
+
+3.7 SHORT JNE EXAMPLE
+
+JNE address = 2000H
+Target address = 2010H
+Instruction length = 2 bytes
+
+Next Instruction:
+2000H + 2 = 2002H
+
+Relative Offset:
+2010H - 2002H = 000EH
+
+Offset = 0EH
+
+Final machine code:
+75 0E
+
+75 = short JNE opcode
+0E = 8-bit relative displacement
+
+
+3.8 NEGATIVE RELATIVE OFFSET
+
+Current instruction address = 1010H
+Next instruction address = 1012H
+Target address = 1000H
+
+Offset:
+1000H - 1012H = -12H
+
+In signed 8-bit two's complement:
+-12H = EEH
+
+Therefore:
+EB EE
+
+
+3.9 SHORT AND NEAR RELATIVE FORMS
+
+Short JMP:
+Form: JMP rel8
+Opcode: EB
+Offset: 8-bit
+
+Near JMP:
+Form: JMP rel32
+Opcode: E9
+Offset: 32-bit
+
+Short JNE:
+Form: JNE rel8
+Opcode: 75
+Offset: 8-bit
+
+Near JNE:
+Form: JNE rel32
+Opcode: 0F 85
+Offset: 32-bit
+
+
+3.10 GENERAL ENCODING PROCEDURE
+
+1. Identify the instruction and operands.
+2. Identify whether the value is an immediate, displacement, or relative offset.
+3. Determine whether it is 8-bit or 32-bit.
+4. Find the correct opcode and required addressing bytes.
+5. For a relative branch, calculate:
+   Target Address - Next Instruction Address
+6. Apply Little-Endian byte order to multi-byte values.
+7. Combine all bytes to obtain the final machine code.
+
+
+3.11 QUICK REFERENCE
+
+imm8 = 1-byte immediate
+imm32 = 4-byte immediate
+disp8 = 1-byte displacement
+disp32 = 4-byte displacement
+rel8 = 1-byte signed relative offset
+rel32 = 4-byte signed relative offset
+Little-Endian = least significant byte first
+Relative formula = Target - Next Instruction Address
+
+
+3.12 COMMON MISTAKES
+
+1. Do not reverse individual bits for Little-Endian; reverse the order of bytes.
+2. For a relative jump, subtract from the next instruction address, not the current address.
+3. Include instruction length when finding the next instruction.
+4. Do not confuse an immediate constant with a memory displacement.
+
+
+3.13 CONCLUSION
+
+Immediates provide constants directly to instructions, displacements help calculate memory addresses, and relative offsets allow control-transfer instructions to reach nearby targets. Correct encoding requires the right field size, relative-offset calculation where applicable, and Little-Endian ordering for multi-byte values.
