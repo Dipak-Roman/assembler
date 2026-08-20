@@ -1,0 +1,81 @@
+
+
+
+	Member 2 — ModR/M + SIB + Addressing Modes
+
+		This member handles the ModR/M and SIB machinery.
+
+		This is probably the most technical part.
+
+	1. ModR/M byte
+
+		Explain that ModR/M contains:
+
+			7 6 | 5 4 3 | 2 1 0
+			----+-------+-------
+		 	MOD |  REG  |  R/M
+
+		So:
+
+			ModR/M = MOD + REG + R/M
+
+			Each section has a specific purpose.
+
+		MOD
+
+		Determines whether the operand is:
+
+			00 → memory, usually no displacement
+			01 → memory + 8-bit displacement
+			10 → memory + 32-bit displacement
+			11 → register
+
+		2. All MOD cases
+
+			Give examples.
+
+			MOD = 00
+			MOV EAX, [EBX]
+	
+			No displacement.
+
+			MOD = 01
+			MOV EAX, [EBX+8]
+
+			8-bit displacement.
+
+			MOD = 10
+			MOV EAX, [EBX+1000]
+
+			32-bit displacement.
+
+			MOD = 11
+			MOV EAX, EBX
+
+			Both operands are registers.
+
+
+		3. 32-bit registers encoding table
+
+			Register 	Encoding
+			
+			EAX		000
+			ECX		001
+			EDX		010
+			EBX		011
+			ESP		100
+			EBP		101
+			ESI		110
+			EDI		111
+
+		SIB byte
+
+		SIB means:
+	
+		Scale-Index-Base
+
+		It has:
+
+		7 6 | 5 4 3 | 2 1 0
+		----+-------+-------
+		SCALE| INDEX | BASE
