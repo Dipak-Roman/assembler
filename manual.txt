@@ -5,3 +5,23 @@
 		added the new banch for the member4 can easily asscess code the throgh this branch
 
 		creted the new branch mem2 for the member 2
+<<<<<<< HEAD
+	task1 
+
+	
+	
+
+	2nd task 
+
+		checks the nemonix which present on asm code 
+		file canatain the only main code of the asm
+		cheks the  instuctiion valid or not which type of instruction is 
+			ex, mov eax, 32 valid (immediate value store in the register)
+			    mov 32, eax (thats envalid cause first moves first oprand should be reg or the memory)
+
+
+	3rd task
+
+		checks the 
+=======
+>>>>>>> main
