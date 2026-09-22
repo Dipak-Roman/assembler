@@ -1,0 +1,35 @@
+# for the comment '#' we used this totally ignre when the program is extarcting the from the file and the empty line is ignored
+
+# MNEMONIC   OPERAND_COUNT   OPERAND1   OPERAND2
+MOV          2               REG        REG
+MOV          2               REG        MEM
+MOV          2               MEM        REG
+MOV          2               REG        IMM
+MOV          2               MEM        IMM
+
+ADD          2               REG        REG
+ADD          2               REG        MEM
+ADD          2               MEM        REG
+ADD          2               REG        IMM
+
+SUB          2               REG        REG
+SUB          2               REG        MEM
+SUB          2               MEM        REG
+SUB          2               REG        IMM
+
+INC          1               REG
+INC          1               MEM
+
+DEC          1               REG
+DEC          1               MEM
+
+JMP          1               LABEL
+JMP          1               IMM
+
+JNE          1               LABEL
+JNE          1               IMM
+
+CMP          2               REG        REG
+CMP          2               REG        MEM
+CMP          2               MEM        REG
+CMP          2               REG        IMM
