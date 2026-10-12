@@ -1,0 +1,13 @@
+; Sample assembly program for opcode checking
+
+MOV EAX, EBX
+MOV ECX, [EAX+4]
+ADD EAX, 15
+SUB EBX, EAX
+INC ECX
+DEC [EBX]
+JMP START
+JNE START
+CMP EAX, [EBX]
+MOOV EAX, EBX
+XYZ ECX, 20

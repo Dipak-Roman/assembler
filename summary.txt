@@ -1,0 +1,15 @@
+PROJECT SOURCE CODE SUMMARY
+============================================================
+
+File Name : login.py
+Location  : login.py
+Purpose   : Handles user authentication and login.
+------------------------------------------------------------
+File Name : helper.py
+Location  : helper.py
+Purpose   : Provides helper functions.
+------------------------------------------------------------
+File Name : database.py
+Location  : database.py
+Purpose   : Handles database operations.
+------------------------------------------------------------

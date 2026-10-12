@@ -1,14 +1,18 @@
+section .data
 
+msg db 'Hello'
+name db 'Himani'
+num db 25
+letter db 'A'
+newline db 10
 
-	MOV EAX, EBX
-	MOV EAX, 10
-	MOV EAX, [EBX+8]
+value dd 1000
+number dd 255
+large_num dd 50000
 
-	ADD EAX, EBX
-	SUB EAX, 5
-	CMP EAX, [EBX]
+section .text
+global main
 
-	MOV EAX
-	MOV EAX, EBX, ECX
-
-	ABC EAX, EBX
+main:
+    mov eax, 1
+    mov ebx, 0
